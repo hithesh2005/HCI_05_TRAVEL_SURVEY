@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Agency Packages</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            width: 50%; /* Set container width to 50% of the window */
+            margin: 20px auto;
+        }
+        .section-title {
+            font-size: 2em;
+            margin: 20px 0;
+            color: #333;
+        }
+        .package {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 100%; /* Make the package width 100% of the container */
+            padding: 10px;
+        }
+        .package img {
+            width: 100%; /* Keep image width responsive */
+            height: auto;
+            margin: 0 auto; /* Center the image */
+        }
+        .package-content {
+            padding: 10px;
+        }
+        .package-content h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .package-content p {
+            margin: 5px 0;
+        }
+        .package-content .price {
+            font-size: 1.2em;
+            color: #e67e22;
+        }
+        .package-content .details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .package-content .details a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .package-content .details a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Travel Agency Packages</h1>
+    </div>
+    <div class="container">
+        <div class="section-title">Most Traveled</div>
+        
+        <div class="package">
+            <img alt="A beautiful beach with crystal clear water and white sand" src="https://www.worldatlas.com/upload/88/3b/8e/pura-ulun-danu-bratan-temple-bali-indonesia-guitar-photographer.jpg"/>
+            <div class="package-content">
+                <h2>Bali, Indonesia</h2>
+                <p>Experience the serene beauty of Bali with its stunning beaches, vibrant culture, and lush landscapes.</p>
+                <p class="price">$1,200</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=-368622&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt="A picturesque view of the Eiffel Tower in Paris during sunset" src="https://plus.unsplash.com/premium_photo-1661919210043-fd847a58522d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGFyaXMlMkMlMjBmcmFuY2V8ZW58MHx8MHx8fDA%3D"/>
+            <div class="package-content">
+                <h2>Paris, France</h2>
+                <p>Discover the romance and charm of Paris, the city of lights, with its iconic landmarks and exquisite cuisine.</p>
+                <p class="price">$1,800</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=-145746&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt ="A scenic view of the Great Wall of China winding through mountains" src="https://cdn.britannica.com/03/198203-050-138BB1C3/entrance-Gate-of-Divine-Might-Beijing-Forbidden.jpg"/>
+            <div class="package-content">
+                <h2>Beijing, China</h2>
+                <p>Explore the rich history and cultural heritage of Beijing, home to the Great Wall and the Forbidden City.</p>
+                <p class="price">$1,500</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=-191244&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt="A vibrant street in Tokyo with neon lights and bustling crowds" src="https://assets.editorial.aetnd.com/uploads/2013/07/gettyimages-1390815938.jpg"/>
+            <div class="package-content">
+                <h2>Tokyo, Japan</h2>
+                <p>Experience the dynamic energy of Tokyo, a city that seamlessly blends tradition with cutting-edge technology.</p>
+                <p class="price">$2,000</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=-246226&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt="A luxurious resort in the Maldives with overwater bungalows" src="https://backend.traviyo.com/Images/Destinations/Journey_62006/638608809302376854_temp.jpg"/>
+            <div class="package-content">
+                <h2>Maldives</h2>
+                <p>Indulge in the ultimate luxury experience in the Maldives, with its pristine beaches and exclusive resorts.</p>
+                <p class="price">$3,500</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=200&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">New Destinations</div>
+
+        <div class="package">
+            <img alt="A stunning view of Santorini with white buildings and blue domes" src="https://lp-cms-production.imgix.net/2024-06/iStock-166471469.jpg"/>
+            <div class="package-content">
+                <h2>Santorini, Greece</h2>
+                <p>Experience the breathtaking sunsets and unique architecture of Santorini, a true paradise in the Aegean Sea.</p>
+                <p class="price">$2,200</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=-835&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt="A beautiful view of the Grand Canyon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Canyon_River_Tree_%28165872763%29.jpeg/1200px-Canyon_River_Tree_%28165872763%29.jpeg"/>
+            <div class="package-content">
+                <h2>Grand Canyon, USA</h2>
+                <p>Explore the majestic Grand Canyon, a natural wonder that offers breathtaking views and outdoor adventures.</p>
+                <p class="price">$1,000</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=200&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt="A picturesque view of the Great Barrier Reef" src="https://www.fitzroyisland.com/wp-content/uploads/2020/12/What-You-Need-to-Know-Before-Visiting-Australias-Great-Barrier-Reef.jpg"/>
+            <div class="package-content">
+                <h2>Great Barrier Reef, Australia</h2>
+                <p>Dive into the vibrant underwater world of the Great Barrier Reef, home to an incredible diversity of marine life and stunning coral formations.</p>
+                <p class="price">$2,500</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=200&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="package">
+            <img alt="A scenic view of the Northern Lights in Iceland" src="https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2024/02/15094015/kirkjufell.jpeg"/>
+            <div class="package-content">
+                <h2>Iceland</h2>
+                <p>Witness the magical Northern Lights and explore the stunning landscapes of Iceland, a land of fire and ice.</p>
+                <p class="price">$3,000</p>
+                <div class="details">
+                    <a href="https://www.booking.com/searchresults.html?city=200&aid=376393">Book Now</a>
+                    <i class="fas fa-plane"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

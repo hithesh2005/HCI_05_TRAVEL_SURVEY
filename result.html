@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 36px;
+            color: #333;
+        }
+        h2 {
+            font-size: 28px;
+            color: #555;
+            margin: 20px 0;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .horizontal-layout {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            gap: 20px;
+        }
+        .horizontal-card {
+            flex: 0 0 auto;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer; /* Indicate that the card is clickable */
+        }
+        .horizontal-card:hover {
+            transform: translateY(-5px);
+        }
+        .horizontal-card img {
+            width: 100%;
+            border-radius: 10px;
+            height: 180px;
+            object-fit: cover;
+        }
+        .horizontal-card a {
+            color: #FF5722;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .horizontal-card a:hover {
+            color: #D45D1E;
+            text-decoration: underline;
+        }
+        .nearby-info {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .nearby-info h4 {
+            margin: 10px 0 5px;
+        }
+        .nearby-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nearby-info ul li {
+            margin: 5px 0;
+        }
+        @media (max-width: 600px) {
+            .horizontal-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .horizontal-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Travel Survey Results</h1>
+        <div id="results"></div>
+        <div id="nearby-info" class="nearby-info" style="display: none;"></div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = JSON.parse(decodeURIComponent(urlParams.get('data')));
+
+        const resultsDiv = document.getElementById('results');
+        const nearbyInfoDiv = document.getElementById('nearby-info');
+        let recommendedDestinations = [];
+
+        const destinations = {
+            beach: [
+                { name: "Maldives", image: "https://www.ahstatic.com/photos/b986_ho_00_p_1024x768.jpg", details: "Stunning white-sand beaches and crystal-clear waters.", bestMonths: "November to April", cost: "$2,500 - $4,000", link: "https://www.visitmaldives.com" },
+                { name: "Hawaii", image: "https://a-us.storyblok.com/f/1005231/321d8a8620/hawaii_18325.jpg", details: "Beautiful beaches and vibrant culture.", bestMonths: "April to October", cost: "$2,000 - $3,500", link: "https://www.gohawaii.com" },
+                { name: "Bali", image: "https://www.pacificprime.com/blog/wp-content/uploads/ideal-indonesian-paradise-bali-800x493.jpg", details: "Famous for its stunning beaches and vibrant culture.", bestMonths: "May to September", cost: "$1,500 - $3,000", link: "https://www.visitbali.com" }
+            ],
+            mountains: [
+                { name: "Swiss Alps", image: "https://deih43ym53wif.cloudfront.net/large_zermatt-matterhorn-switzerland-shutterstock_1298208013_44fea015e5.jpeg", details: "Breathtaking mountain scenery and world-class skiing.", bestMonths: "December to March", cost: "$3,000 - $5,000", link: "https://www.myswitzerland.com/en/destinations/swiss-alps/" },
+                { name: "Rocky Mountains", image: "https://i.natgeofe.com/n/11e30e6f-6fd8-4755-9647-0df41738713a/92565_3x2.jpg", details: "Stunning peaks and extensive hiking trails.", bestMonths: "June to September", cost: "$2,000 - $4,000", link: "https://www.rockymountainnationalpark.com" },
+                { name: "Himalayas", image: "https://static.toiimg.com/thumb/64447677/himalaya-mystery.jpg?width=636&height=358&resize=4", details: "Breathtaking scenery and trekking opportunities.", bestMonths: "April to June and September to November", cost: "$1,500 - $3,000", link: "https://www.himalayas.com" }
+            ],
+            city: [
+                { name: "New York", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/1200px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg", details: "A bustling metropolis with iconic landmarks.", bestMonths: "April to June and September to November", cost: "$2,000 - $4,000", link: "https://www.nycgo.com" },
+                { name: "Tokyo", image: "https://assets.cntraveller.in/photos/6352a8c00831d51e5aa10703/16:9/w_1280,c_limit/tokyoGettyImages-1031467664.jpeg", details: "A vibrant city blending modernity and tradition.", bestMonths: "March to May and October to November", cost: "$2,500 - $4,000", link: "https://www.gotokyo.org/en/" },
+                { name: "Paris", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1", details: "Famous for its stunning architecture and romantic atmosphere.", bestMonths: "April to June and September to November", cost: "$2,000 - $3,500", link: "https://www.paris.com" }
+            ],
+            countryside: [
+                { name: "Tuscany", image: "https://www.thediscoveriesof.com/wp-content/uploads/2023/09/Volterra-Tuscany.jpg.webp", details: "Known for its rolling hills and vineyards.", bestMonths: "April to June and September to October", cost: "$2,000 - $4,000", link: "https://www.visittuscany.com/en/" },
+                { name: "Bavaria", image: "https://cdn.britannica.com/11/101811-004-F8035F68/Rothenburg-ob-der-Tauber-Bavaria-Ger.jpg", details: "Picturesque countryside and medieval castles.", bestMonths: "May to September", cost: "$1,800 - $3,000", link: "https://www.bavaria.travel" },
+                { name: "Cotswolds", image: "https://www.cotswoldlettingagency.com/wp-content/uploads/2023/03/beyond-cotswolds-hills.jpg", details: "Charming villages and historic towns.", bestMonths: "April to June and September to October", cost: "$1,500 - $3,000", link: "https://www.visitcotswolds.com" }
+            ]
+        };
+
+        const nearbyInfo = {
+            Maldives: {
+                hotels: ["Paradise Island Resort", "Sunset Beach Hotel", "Ocean View Inn"],
+                restaurants: ["Maldives Seafood Grill", "Tropical Breeze Cafe", "Coral Reef Restaurant"],
+                attractions: ["Banana Reef", "Manta Point", "Hulhumale Beach"]
+            },
+            Hawaii: {
+                hotels: ["Aloha Hotel", "Waikiki Beach Resort", "Island Paradise Inn"],
+                restaurants: ["Hula Grill", "Duke's Waikiki", "Roy's Hawaii"],
+                attractions: ["Diamond Head", "Hanauma Bay", "Pearl Harbor"]
+            },
+            Bali: {
+                hotels: ["Bali Bliss Resort", "Ubud Jungle Retreat", "Seminyak Beach Hotel"],
+                restaurants: ["Bali Bites", "Naughty Nuri's", "Warung Babi Guling"],
+                attractions: ["Uluwatu Temple", "Tegallalang Rice Terraces", "Kuta Beach"]
+            },
+            "Swiss Alps": {
+                hotels: ["Alpine Lodge", "Mountain View Hotel", "Ski Resort Inn"],
+                restaurants: ["Fondue House", "Alpine Grill", "Mountain Bistro"],
+                attractions: ["Matterhorn", "Lake Geneva", "Jungfraujoch"]
+            },
+            "Rocky Mountains": {
+                hotels: ["Rocky Mountain Lodge", "Trailhead Inn", "Mountain Peak Hotel"],
+                restaurants: ["Alpine Grill", "Mountain View Cafe", "Trailside Diner"],
+                attractions: ["Rocky Mountain National Park", "Pikes Peak", "Estes Park"]
+            },
+            Himalayas: {
+                hotels: ["Himalayan Retreat", "Mountain Top Lodge", "Everest View Hotel"],
+                restaurants: ["Sherpa's Kitchen", "Himalayan Spice", "Tibetan Delights"],
+                attractions: ["Mount Everest Base Camp", "Annapurna Circuit", "Bhaktapur Durbar Square"]
+            },
+            "New York": {
+                hotels: ["The Grand NYC", "Central Park Hotel", "Times Square Inn"],
+                restaurants: ["Katz's Delicatessen", "The Modern", "Joe's Pizza"],
+                attractions: ["Statue of Liberty", "Central Park", "Metropolitan Museum of Art"]
+            },
+            "Tokyo": {
+                hotels: ["Tokyo Bay Hotel", "Shinjuku Grand Hotel", "Asakusa Inn"],
+                restaurants: ["Sushi Dai", "Ichiran Ramen", "Narisawa"],
+                attractions: ["Tokyo Tower", "Shibuya Crossing", "Senso-ji Temple"]
+            },
+            "Paris": {
+                hotels: ["Hotel de Paris", "Eiffel Tower View Hotel", "Montmartre Inn"],
+                restaurants: ["Le Meurice", "Cafe de Flore", "L'Atelier de Joël Robuchon"],
+                attractions: ["Eiffel Tower", "Louvre Museum", "Notre-Dame Cathedral"]
+            },
+            "Tuscany": {
+                hotels: ["Tuscany Hills Resort", "Florence Boutique Hotel", "Chianti Inn"],
+                restaurants: ["Osteria Francescana", "Trattoria da Burde", "Ristorante Il Canto"],
+                attractions: ["Leaning Tower of Pisa", "Uffizi Gallery", "Siena Cathedral"]
+            },
+            "Bavaria": {
+                hotels: ["Bavarian Castle Hotel", "Munich City Center Inn", "Alpine Retreat"],
+                restaurants: ["Hofbräuhaus München", "Wirtshaus in der Au", "SchwabenQuellen"],
+                attractions: ["Neuschwanstein Castle", "Oktoberfest", "Nymphenburg Palace"]
+            },
+            "Cotswolds": {
+                hotels: ["Cotswold Cottage Hotel", "Charming Inn", "The Old Mill"],
+                restaurants: ["The Wild Rabbit", "The Bell Inn", "The Kingham Plough"],
+                attractions: ["Bourton-on-the-Water", "Bibury", "Sudeley Castle"]
+            }
+        };
+
+        if (data.destination in destinations) {
+            recommendedDestinations = destinations[data.destination];
+        }
+
+        let resultsHTML = `<h2>Thank you for completing the survey, ${data.name}!</h2>`;
+        resultsHTML += `<p>Based on your preferences, we recommend visiting the following destinations:</p>`;
+        const resultsContainer = document.createElement('div');
+        resultsContainer.className = 'horizontal-layout';
+
+        recommendedDestinations.forEach(dest => {
+            resultsContainer.innerHTML += `
+                <div class="horizontal-card" onclick="showNearbyInfo('${dest.name}')">
+                    <img src="${dest.image}" alt="${dest.name}">
+                    <h3>${dest.name}</h3>
+                    <p>${dest.details}</p>
+                    <p>Best time to visit: ${dest.bestMonths}</p>
+                    <p>Estimated Cost: ${dest.cost}</p>
+                    <p>For more information, visit <a href="${dest.link}" target="_blank">here</a></p>
+                </div>
+            `;
+        });
+
+        resultsDiv.innerHTML = resultsHTML;
+        resultsDiv.appendChild(resultsContainer);
+        
+        window.showNearbyInfo = function(destinationName) {
+            const nearby = nearbyInfo[destinationName] || { hotels: [], restaurants: [], attractions: [] };
+            nearbyInfoDiv.innerHTML = `
+                <h4>Nearby Hotels:</h4>
+                <ul>
+                    ${nearby.hotels.map(hotel => `<li>${hotel}</li>`).join('')}
+                </ul>
+                <h4>Restaurants:</h4>
+                <ul>
+                    ${nearby.restaurants.map(restaurant => `<li>${restaurant}</li>`).join('')}
+                </ul>
+                <h4>Famous Attractions:</h4>
+                <ul>
+                    ${nearby.attractions.map(attraction => `<li>${attraction}</li>`).join('')}
+                </ul>
+            `;
+            nearbyInfoDiv.style.display = 'block'; 
+        };
+    </script>
+</body>
+</html>
